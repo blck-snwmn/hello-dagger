@@ -6,10 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CUE_VERSION: v0.4.3
-      CUE_TARBALL: cue_${{env.CUE_VERSION}}_linux_amd64.tar.gz
+
     steps:
       - run: echo $CUE_TARBALL
       - uses: actions/checkout@v3
       - name: install cue
         run: curl -L "https://github.com/cue-lang/cue/releases/download/${CUE_VERSION}/${CUE_TARBALL}" | tar zxf - -C /usr/local/bin
+        env:
+          CUE_TARBALL: cue_${{env.CUE_VERSION}}_linux_amd64.tar.gz
       - run: cue vet sample.yaml check.cue
