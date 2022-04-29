@@ -1,9 +1,12 @@
 name: yaml lint useing cue
 on: push
-  
-steps:
-  - uses: actions/checkout@v3
-  - uses: actions/setup-go@v3
-  - name: install cue
-    run: go install cuelang.org/go/cmd/cue@latest
-  - run: cue vet sample.yaml check.cue 
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+      - name: install cue
+        run: go install cuelang.org/go/cmd/cue@latest
+      - run: cue vet sample.yaml check.cue
