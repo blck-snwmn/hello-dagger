@@ -34,10 +34,6 @@ dagger.#Plan & {
                 packages: git:  _
             },
 
-            docker.#Copy & {
-                contents: source
-            },
-
             // Install CUE
             bash.#Run & {
                 script: contents: #"""
@@ -48,6 +44,12 @@ dagger.#Plan & {
                             cue version
                     """#
             },
+
+            docker.#Copy & {
+                contents: source
+                dest: "/cue"
+            },
+
             // LINT
             bash.#Run & {
                 workdir: "/cue"
