@@ -9,4 +9,6 @@ jobs:
       - uses: actions/setup-go@v3
       - name: install cue
         run: go install cuelang.org/go/cmd/cue@latest
+      - run: echo $PATH
+      - run: ls -al /home/runner/go
       - run: cue vet sample.yaml check.cue
