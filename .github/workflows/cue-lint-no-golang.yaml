@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CUE_VERSION: v0.4.3
-      CUE_TARBALL: cue_${CUE_VERSION}_linux_amd64.tar.gz
+      CUE_TARBALL: cue_${{CUE_VERSION}}_linux_amd64.tar.gz
     steps:
       - run: echo $CUE_TARBALL
       - uses: actions/checkout@v3
