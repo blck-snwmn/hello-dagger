@@ -3,10 +3,9 @@ yyyy: &xxxx
   def: xxxxxxxxx
   task: yyyyyy
 module:
-- name: aaaaa
-  <<: *xxxx
-  description: aaaaaa
-- name: bbbbb
-  <<: *xxxx
-  description: bbbbbb
-
+  - name: aaaaa
+    <<: *xxxx
+    description: aaaaaa
+  - name: bbbbb
+    <<: *xxxx
+    description: bbbbbb
