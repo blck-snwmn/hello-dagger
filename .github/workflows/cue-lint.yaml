@@ -11,6 +11,4 @@ jobs:
           go-version: ">=1.17.0"
       - name: install cue
         run: go install cuelang.org/go/cmd/cue@latest
-      - run: echo $PATH
-      - run: ls -al /home/runner/go/bin
       - run: cue vet sample.yaml check.cue
