@@ -5,6 +5,7 @@ yyyy: &xxxx
 module:
   - name: aaaaa
     <<: *xxxx
+    description: aaaaaa
   - name: bbbbb
     <<: *xxxx
     description: bbbbbb
