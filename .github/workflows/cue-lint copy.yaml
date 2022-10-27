@@ -1,4 +1,4 @@
-name: yaml lint useing cue
+name: yaml lint useing golang
 on: push
 
 jobs:
