@@ -1,5 +1,5 @@
 # hello-cue
-
+cue and dagger(using cue/go) sample repository
 
 ## Install
 ```bash
