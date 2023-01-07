@@ -21,13 +21,10 @@ func build() error {
 	}
 	defer client.Close()
 
-	dir := client.Host().Workdir().Read().WithoutDirectory(".github").WithoutDirectory(".git")
-	dirID, err := dir.ID(ctx)
-	if err != nil {
-		return err
-	}
+	dir := client.Host().Workdir().WithoutDirectory(".github").WithoutDirectory(".git")
+
 	container := client.Container().From("cuelang/cue:0.4.3")
-	container = container.WithMountedDirectory("/cue", dirID).WithWorkdir("/cue")
+	container = container.WithMountedDirectory("/cue", dir).WithWorkdir("/cue")
 	_, err = container.Exec(dagger.ContainerExecOpts{
 		Args: []string{"vet", "sample.yaml", "check.cue"},
 	}).ExitCode(ctx)

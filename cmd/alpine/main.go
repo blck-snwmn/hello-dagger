@@ -21,7 +21,7 @@ func build() error {
 	}
 	defer client.Close()
 
-	dir := client.Host().Workdir().Read().WithoutDirectory(".github").WithoutDirectory(".git")
+	dir := client.Host().Workdir().WithoutDirectory(".github").WithoutDirectory(".git")
 
 	container := client.Container().From("alpine:3.16.2")
 
@@ -42,15 +42,11 @@ func build() error {
 	container = container.Exec(dagger.ContainerExecOpts{
 		Args: []string{"cue", "version"},
 	})
-	dirID, err := dir.ID(ctx)
-	if err != nil {
-		return err
-	}
-	container = container.WithMountedDirectory("/cue", dirID).WithWorkdir("/cue")
+	container = container.WithMountedDirectory("/cue", dir).WithWorkdir("/cue")
 	container = container.Exec(dagger.ContainerExecOpts{
 		Args: []string{"cue", "vet", "sample.yaml", "check.cue"},
 	})
-	out, err := container.Stdout().Contents(ctx)
+	out, err := container.Stdout(ctx)
 	fmt.Println(out)
 	if err != nil {
 		return err
