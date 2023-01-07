@@ -21,7 +21,7 @@ func build() error {
 	}
 	defer client.Close()
 
-	dir := client.Host().Workdir().WithoutDirectory(".github").WithoutDirectory(".git")
+	dir := client.Host().Directory(".").WithoutDirectory(".github").WithoutDirectory(".git")
 
 	container := client.Container().From("alpine:3.16.2")
 
@@ -30,22 +30,13 @@ func build() error {
 	ctarball := fmt.Sprintf("cue_%s_linux_amd64.tar.gz", cversion)
 	path := fmt.Sprintf("https://github.com/cue-lang/cue/releases/download/%s/%s", cversion, ctarball)
 
-	container = container.Exec(dagger.ContainerExecOpts{
-		Args: []string{"wget", "-O", "/" + ctarball, path},
-	})
-	container = container.Exec(dagger.ContainerExecOpts{
-		Args: []string{"ls", "-alt", "/"},
-	})
-	container = container.Exec(dagger.ContainerExecOpts{
-		Args: []string{"tar", "zxf", ctarball, "-C", "/usr/local/bin"},
-	})
-	container = container.Exec(dagger.ContainerExecOpts{
-		Args: []string{"cue", "version"},
-	})
+	container = container.WithExec([]string{"wget", "-O", "/" + ctarball, path})
+	container = container.WithExec([]string{"ls", "-alt", "/"})
+
+	container = container.WithExec([]string{"tar", "zxf", ctarball, "-C", "/usr/local/bin"})
+	container = container.WithExec([]string{"cue", "version"})
 	container = container.WithMountedDirectory("/cue", dir).WithWorkdir("/cue")
-	container = container.Exec(dagger.ContainerExecOpts{
-		Args: []string{"cue", "vet", "sample.yaml", "check.cue"},
-	})
+	container = container.WithExec([]string{"cue", "vet", "sample.yaml", "check.cue"})
 	out, err := container.Stdout(ctx)
 	fmt.Println(out)
 	if err != nil {
