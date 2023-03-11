@@ -1,6 +1,6 @@
 module github.com/blck-snwmn/hello-cue
 
-go 1.19
+go 1.20
 
 require dagger.io/dagger v0.5.0
 
