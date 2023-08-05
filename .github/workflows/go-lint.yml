@@ -1,0 +1,9 @@
+name: go lint
+on: push
+
+jobs:
+  go-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: blck-snwmn/share-workflows/go/lint@main
+     
