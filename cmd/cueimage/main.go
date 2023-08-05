@@ -25,7 +25,7 @@ func build() error {
 
 	container := client.Container().From("cuelang/cue:0.4.3")
 	container = container.WithMountedDirectory("/cue", dir).WithWorkdir("/cue")
-	_, err = container.WithExec([]string{"vet", "sample.yaml", "check.cue"}).ExitCode(ctx)
+	_, err = container.WithExec([]string{"vet", "sample.yaml", "check.cue"}).Sync(ctx)
 	if err != nil {
 		return err
 	}
