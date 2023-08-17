@@ -2,7 +2,7 @@ module github.com/blck-snwmn/hello-cue
 
 go 1.20
 
-require dagger.io/dagger v0.8.2
+require dagger.io/dagger v0.8.3
 
 require (
 	github.com/99designs/gqlgen v0.17.31 // indirect
@@ -11,10 +11,8 @@ require (
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/vektah/gqlparser/v2 v2.5.6 // indirect
-	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/tools v0.11.0 // indirect
 )
 
 replace github.com/docker/docker => github.com/docker/docker v20.10.3-0.20220414164044-61404de7df1a+incompatible
