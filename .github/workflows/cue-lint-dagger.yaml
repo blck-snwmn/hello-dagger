@@ -6,8 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dagger/dagger-for-github@v4
+      - uses: dagger/dagger-for-github@v5
         with:
-          cmds: |
+          verb: "run"
+          args: |
             project update
             do lint
